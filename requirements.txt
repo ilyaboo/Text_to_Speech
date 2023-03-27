@@ -1,3 +1,4 @@
 docx==0.2.4
 gTTS==2.3.1
+langdetect==1.0.9
 PyPDF2==3.0.1

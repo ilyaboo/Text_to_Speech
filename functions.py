@@ -1,7 +1,9 @@
 from pathlib import Path
 from gtts import gTTS
+from gtts import lang
 from PyPDF2 import PdfReader
 import docx
+from langdetect import detect
 
 def filepath_check(filepath, extension):
     # checks the filepath and returns an
@@ -19,7 +21,7 @@ def filepath_check(filepath, extension):
     else:
         return "correct"
     
-def generate_speech(filepath, extension):
+def generate_speech_audio(filepath, extension):
     # function that generates the audio file
     # from filepath and extension
     # creating a name for recording
@@ -30,9 +32,13 @@ def generate_speech(filepath, extension):
     else:
         text = read_docx(filepath)
     name = generate_filename(filepath)
-    audio = gTTS(text = text, lang = "en", slow = False)
-    audio.save(name)
-    return
+    language = get_language(text)
+    if language == None:
+        return False
+    else:
+        audio = gTTS(text = text, lang = language, slow = False)
+        audio.save(name)
+    return True
 
 def generate_filename(filepath):
     # function that generates the name of a generated
@@ -73,3 +79,19 @@ def read_docx(filepath):
     for paragraph in doc.paragraphs:
         text += " " + paragraph.text
     return text
+
+def get_language(text):
+    # function that detects the language of the
+    # text string and returns the code of the langeuage
+    # if there is no such language or it is not supported
+    # it erturns None
+    try:
+        language = detect(text)
+    except:
+        # no language features
+        return None
+    languages = lang.tts_langs()
+    if language not in languages:
+        return None
+    else:
+        return language

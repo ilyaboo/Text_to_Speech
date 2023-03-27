@@ -191,6 +191,8 @@ class Interface:
             self.l_status.config(text = "Please choose an extension of the file you want to convert.")
         elif status == "generating":
             self.l_status.config(text = "The program is generating the file. Please wait...")
+        elif status == "invalid language":
+            self.l_status.config(text = "Unfortunately, the language of the file is not supported.")
         elif status == "done":
             self.l_status.config(text = "Done!\nThe program generated an audio file!")
         return
@@ -215,7 +217,8 @@ class Interface:
         return (filepath, extension)
     
     def generate_speech(self):
-        # function that attempts to generate the 
+        # function that attempts to generate the speech
+        # from entered filepath and extension
         self.set_status("generating")
         filepath, extension = self.get_input()
         if filepath == "":
@@ -228,12 +231,16 @@ class Interface:
         result = filepath_check(filepath, extension)
         if result == "correct":
             self.set_status("generating") # doesn't update the label, fix that
-            generate_speech(filepath, extension)
-            self.set_status("done")
+            success = generate_speech_audio(filepath, extension)
+            if success:
+                self.set_status("done")
+            else:
+                self.set_status("invalid language")
         else:
+            # error handler
             self.set_status(result)
         return
-    
+
     def launch(self):
         # method to launch the window of the application
         self.root.mainloop()
