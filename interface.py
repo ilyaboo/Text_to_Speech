@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.font as tkFont
 from functions import *
+import time
 
 class Interface:
 
@@ -9,7 +10,7 @@ class Interface:
 
         # generating window
         self.root.title("Text to Speech Converter")
-        self.root.geometry("700x375")
+        self.root.geometry("700x390")
 
         # design parameters
         background_color = "#121212"
@@ -190,6 +191,8 @@ class Interface:
             self.l_status.config(text = "Please choose an extension of the file you want to convert.")
         elif status == "generating":
             self.l_status.config(text = "The program is generating the file. Please wait...")
+        elif status == "done":
+            self.l_status.config(text = "Done!\nThe program generated an audio file!")
         return
     
     def get_path_input(self):
@@ -213,6 +216,7 @@ class Interface:
     
     def generate_speech(self):
         # function that attempts to generate the 
+        self.set_status("generating")
         filepath, extension = self.get_input()
         if filepath == "":
             self.set_status("empty path")
@@ -223,7 +227,9 @@ class Interface:
         extension = extension.split(" ")[0]
         result = filepath_check(filepath, extension)
         if result == "correct":
-            self.set_status("generating")
+            self.set_status("generating") # doesn't update the label, fix that
+            generate_speech(filepath, extension)
+            self.set_status("done")
         else:
             self.set_status(result)
         return
