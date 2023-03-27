@@ -194,8 +194,6 @@ class Interface:
             self.l_status.config(text = "Unfortunately, the language of the file is not supported.")
         elif status == "done":
             self.l_status.config(text = "Done!\nThe program generated an audio file!")
-        else:
-            self.l_status.config(text = "")
         self.root.update()
         return
     
@@ -237,8 +235,6 @@ class Interface:
                 self.set_status("invalid language")
             else:
                 self.set_status("done")
-                self.root.update()
-                return
         else:
             # error handler
             self.set_status(result)
