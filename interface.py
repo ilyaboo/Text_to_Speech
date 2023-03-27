@@ -1,7 +1,6 @@
 from tkinter import *
 import tkinter.font as tkFont
 from functions import *
-import time
 
 class Interface:
 
@@ -40,7 +39,7 @@ class Interface:
         # first step label to enter the path to the text file
         l_textbox = Label(
             self.root,
-            text = "1) Enter a relative path to the file you want to convert to speech:",
+            text = "1) Enter a path to the file you want to convert to speech:",
             bg = background_color,
             font = font_general
             )
@@ -195,6 +194,9 @@ class Interface:
             self.l_status.config(text = "Unfortunately, the language of the file is not supported.")
         elif status == "done":
             self.l_status.config(text = "Done!\nThe program generated an audio file!")
+        else:
+            self.l_status.config(text = "")
+        self.root.update()
         return
     
     def get_path_input(self):
@@ -230,12 +232,13 @@ class Interface:
         extension = extension.split(" ")[0]
         result = filepath_check(filepath, extension)
         if result == "correct":
-            self.set_status("generating") # doesn't update the label, fix that
             success = generate_speech_audio(filepath, extension)
-            if success:
-                self.set_status("done")
-            else:
+            if not success:
                 self.set_status("invalid language")
+            else:
+                self.set_status("done")
+                self.root.update()
+                return
         else:
             # error handler
             self.set_status(result)

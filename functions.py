@@ -38,7 +38,7 @@ def generate_speech_audio(filepath, extension):
     else:
         audio = gTTS(text = text, lang = language, slow = False)
         audio.save(name)
-    return True
+        return True
 
 def generate_filename(filepath):
     # function that generates the name of a generated
