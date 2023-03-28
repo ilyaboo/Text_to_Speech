@@ -14,7 +14,7 @@ class Interface:
         # design parameters
         background_color = "#121212"
         self.root.configure(background = background_color)
-        font_intro = tkFont.Font(family = 'Open Sans', size = 36, weight = 'bold')
+        font_intro = tkFont.Font(family = 'Open Sans', size = 24, weight = 'bold')
         font_general = tkFont.Font(family = 'Open Sans', size = 16)
 
         # technical parameters
@@ -53,26 +53,27 @@ class Interface:
             pady = 5
             )
 
+        path_frame = Frame(self.root, bg = background_color)
+
         # window for the filepath
         self.i_path = Text(
-            self.root,
+            path_frame,
             bg = background_color,
             fg = "white",
             height = 1,
             width = 55
             )
         self.i_path.grid(
-            row = 2,
+            row = 0,
             column = 0,
-            sticky = W,
-            padx = 25,
-            pady = 5
+            columnspan = 2,
+            sticky = E,
             )
         self.i_path.configure(state = 'normal')
 
         # button to clear the path input
         b_clear = Button(
-            self.root,
+            path_frame,
             text = "clear",
             command = self.clear_path,
             bg = "white",
@@ -80,11 +81,16 @@ class Interface:
             height = 1
             )
         b_clear.grid(
+            row = 0,
+            column = 2,
+            sticky = W
+            )
+
+        path_frame.grid(
             row = 2,
+            padx = 25,
             column = 0,
-            sticky = NE,
-            padx = 30,
-            pady = 0
+            columnspan = 2
             )
 
         # second step label to choose an extension of the file
