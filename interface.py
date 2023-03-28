@@ -10,6 +10,7 @@ class Interface:
         # generating window
         self.root.title("Text to Speech Converter")
         self.root.geometry("700x390")
+        self.root.resizable(False, False)
 
         # design parameters
         background_color = "#121212"
@@ -26,6 +27,7 @@ class Interface:
             self.root,
             text = "Welcome to Text to Speech Converter!",
             bg = background_color,
+            fg = "white",
             font = font_intro,
             padx = 25,
             pady = 5
@@ -41,6 +43,7 @@ class Interface:
             self.root,
             text = "1) Enter a path to the file you want to convert to speech:",
             bg = background_color,
+            fg = "white",
             font = font_general
             )
         l_textbox.grid(
@@ -54,6 +57,8 @@ class Interface:
         # window for the filepath
         self.i_path = Text(
             self.root,
+            bg = background_color,
+            fg = "white",
             height = 1,
             width = 55
             )
@@ -71,7 +76,8 @@ class Interface:
             self.root,
             text = "clear",
             command = self.clear_path,
-            bg = background_color,
+            bg = "white",
+            fg = background_color,
             height = 1
             )
         b_clear.grid(
@@ -87,6 +93,7 @@ class Interface:
             self.root,
             text = "2) Enter the extension of the file:",
             bg = background_color,
+            fg = "white",
             font = font_general,
             )
         l_filetype.grid(
@@ -100,6 +107,8 @@ class Interface:
         # listbox to choose the extension
         self.i_type = Listbox(
             self.root,
+            bg = "white",
+            fg = background_color,
             height = len(type_options),
             width = 50
             )
@@ -120,7 +129,8 @@ class Interface:
             self.root,
             text = "Generate",
             command = self.generate_speech,
-            bg = background_color,
+            background = "white",
+            fg = background_color,
             height = 2
             )
         b_generate.grid(
@@ -136,6 +146,7 @@ class Interface:
             self.root,
             text = "",
             bg = background_color,
+            fg = "white",
             font = font_general,
             height = 2,
             justify = LEFT
@@ -154,9 +165,10 @@ class Interface:
             self.root,
             text = "Quit",
             command = self.root.destroy,
+            bg = "white",
+            fg = background_color,
             height = 2,
-            width = 5,
-            bg = background_color
+            width = 5
             )
         b_quit.grid(
             row = 7,
@@ -166,12 +178,12 @@ class Interface:
             )
         return
     
-    def clear_path(self):
+    def clear_path(self) -> None:
         # method that clears the path input
         self.i_path.delete("1.0", 'end-1c')
         return
     
-    def set_status(self, status):
+    def set_status(self, status) -> None:
         # method that sets the status label 
         # according to the argument of the method
         # clearing status
@@ -197,26 +209,26 @@ class Interface:
         self.root.update()
         return
     
-    def get_path_input(self):
+    def get_path_input(self) -> str:
         # method to extract the entered filepath
         filepath = self.i_path.get("1.0", 'end-1c')
         return filepath
     
-    def get_extension_input(self):
+    def get_extension_input(self) -> str:
         # method that returns selected file type
         if len(self.i_type.curselection()) == 0:
             return None
         else:
             return self.i_type.get(self.i_type.curselection()[0])
     
-    def get_input(self):
+    def get_input(self) -> (str, str):
         # method that extracts entered filepath and 
         # selected file type and returns them
         filepath = self.get_path_input()
         extension = self.get_extension_input()
         return (filepath, extension)
     
-    def generate_speech(self):
+    def generate_speech(self) -> None:
         # function that attempts to generate the speech
         # from entered filepath and extension
         self.set_status("generating")
@@ -240,7 +252,7 @@ class Interface:
             self.set_status(result)
         return
 
-    def launch(self):
+    def launch(self) -> None:
         # method to launch the window of the application
         self.root.mainloop()
         return

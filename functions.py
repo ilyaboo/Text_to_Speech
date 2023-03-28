@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 import docx
 from langdetect import detect
 
-def filepath_check(filepath, extension):
+def filepath_check(filepath: str, extension: str) -> str:
     # checks the filepath and returns an
     # according status
     path = Path(filepath)
@@ -21,7 +21,7 @@ def filepath_check(filepath, extension):
     else:
         return "correct"
     
-def generate_speech_audio(filepath, extension):
+def generate_speech_audio(filepath: str, extension: str) -> bool:
     # function that generates the audio file
     # from filepath and extension
     # creating a name for recording
@@ -40,7 +40,7 @@ def generate_speech_audio(filepath, extension):
         audio.save(name)
         return True
 
-def generate_filename(filepath):
+def generate_filename(filepath: str) -> str:
     # function that generates the name of a generated
     # .mp3 file using the filepath to the original
     # text file
@@ -52,7 +52,7 @@ def generate_filename(filepath):
     name += ".mp3"
     return name
 
-def read_txt(filepath):
+def read_txt(filepath: str) -> str:
     # function that extracts text from a .txt document
     # and returns a single string with the text
     text = ""
@@ -62,7 +62,7 @@ def read_txt(filepath):
     file.close()
     return text
 
-def read_pdf(filepath):
+def read_pdf(filepath: str) -> str:
     # function that extracts text from a .pdf document
     # and returns a single string with the text
     text = ""
@@ -71,7 +71,7 @@ def read_pdf(filepath):
         text += " " + page.extract_text()
     return text
 
-def read_docx(filepath):
+def read_docx(filepath: str) -> str:
     # function that extracts text from a .docx document
     # and returns a single string with the text
     doc = docx.Document(filepath)
@@ -80,7 +80,7 @@ def read_docx(filepath):
         text += " " + paragraph.text
     return text
 
-def get_language(text):
+def get_language(text: str) -> str:
     # function that detects the language of the
     # text string and returns the code of the langeuage
     # if there is no such language or it is not supported
