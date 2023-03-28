@@ -9,7 +9,6 @@ class Interface:
 
         # generating window
         self.root.title("Text to Speech Converter")
-        self.root.geometry("700x390")
         self.root.resizable(False, False)
 
         # design parameters
@@ -174,7 +173,8 @@ class Interface:
             row = 7,
             column = 2,
             sticky = E,
-            padx = 25
+            padx = 25,
+            pady = 20
             )
         return
     
