@@ -4,7 +4,7 @@ This is a simple text to speech converter application developed using Python. Th
 
 ## Installation
 
-To use this app, first, make sure that you have Python 3 with Tkinter package is installed on your computer.
+To use this app, first, make sure that you have Python 3 with Tkinter package is installed on your computer. You can install python with Tkinter package [here](https://www.python.org/downloads/). 
 
 Then, clone this repository using the following command:
 
