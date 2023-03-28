@@ -9,12 +9,12 @@ To use this app, first, make sure that you have Python 3 with Tkinter package is
 Then, clone this repository using the following command:
 
 ```
-git clone https://github.com/your_username/text-to-speech-converter.git
+git clone https://github.com/ilyaboo/text_to_speech.git
 ```
 Navigate to the project directory and install the required packages using pip:
 
 ```
-cd text-to-speech-converter
+cd text_to_speech
 pip install -r requirements.txt
 ```
 
