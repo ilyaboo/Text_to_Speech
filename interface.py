@@ -52,7 +52,8 @@ class Interface:
             padx = 25,
             pady = 5
             )
-
+        
+        # creating a frame for path entry and clear buttons widgets
         path_frame = Frame(self.root, bg = background_color)
 
         # window for the filepath
@@ -78,14 +79,17 @@ class Interface:
             command = self.clear_path,
             bg = "white",
             fg = background_color,
-            height = 1
+            height = 1,
+            width = 4
             )
         b_clear.grid(
             row = 0,
             column = 2,
+            padx = 7,
             sticky = W
             )
 
+        # placing the frame in the grid
         path_frame.grid(
             row = 2,
             padx = 25,
@@ -174,7 +178,7 @@ class Interface:
             bg = "white",
             fg = background_color,
             height = 2,
-            width = 5
+            width = 8
             )
         b_quit.grid(
             row = 7,
