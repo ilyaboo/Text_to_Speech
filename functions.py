@@ -21,7 +21,7 @@ def filepath_check(filepath: str, extension: str) -> str:
     else:
         return "correct"
     
-def generate_speech_audio(filepath: str, extension: str) -> bool:
+def generate_speech_audio(filepath: str, extension: str) -> str:
     # function that generates the audio file
     # from filepath and extension
     # creating a name for recording
@@ -34,11 +34,15 @@ def generate_speech_audio(filepath: str, extension: str) -> bool:
     name = generate_filename(filepath)
     language = get_language(text)
     if language == None:
-        return False
+        return "invalid language"
     else:
-        audio = gTTS(text = text, lang = language, slow = False)
-        audio.save(name)
-        return True
+        try:
+            audio = gTTS(text = text, lang = language, slow = False)
+            audio.save(name)
+            return "done"
+        except:
+            return "fail"
+        
 
 def generate_filename(filepath: str) -> str:
     # function that generates the name of a generated
@@ -56,9 +60,9 @@ def read_txt(filepath: str) -> str:
     # function that extracts text from a .txt document
     # and returns a single string with the text
     text = ""
-    file = open(filepath, "r")
+    file = open(filepath, "rb")
     for line in file:
-        text += line
+        text += line.decode()
     file.close()
     return text
 

@@ -210,13 +210,15 @@ class Interface:
         elif status == "empty path":
             self.l_status.config(text = "Please enter the path to the file.")
         elif status == "empty extension":
-            self.l_status.config(text = "Please choose an extensionof the file.")
+            self.l_status.config(text = "Please choose an extension of the file.")
         elif status == "generating":
             self.l_status.config(text = "The program is generating the file.\nPlease wait...")
         elif status == "invalid language":
             self.l_status.config(text = "File language is not supported.")
         elif status == "done":
             self.l_status.config(text = "Done!\nThe program generated an audio file!")
+        elif status == "fail":
+            self.l_status.config(text = "Couldn't process the file. Try again.")
         self.root.update()
         return
     
@@ -253,11 +255,8 @@ class Interface:
         result = filepath_check(filepath, extension)
         if result == "correct":
             self.set_status("generating")
-            success = generate_speech_audio(filepath, extension)
-            if not success:
-                self.set_status("invalid language")
-            else:
-                self.set_status("done")
+            audio_status = generate_speech_audio(filepath, extension)
+            self.set_status(audio_status)
         else:
             # error handler
             self.set_status(result)
