@@ -89,6 +89,7 @@ class Interface:
         path_frame.grid(
             row = 2,
             padx = 25,
+            pady = 5,
             column = 0,
             columnspan = 2
             )
