@@ -204,13 +204,13 @@ class Interface:
         elif status == "invalid extension":
             self.l_status.config(text = "You chose a wrong file extension.\nPlease choose the correct one and click Generate again.")
         elif status == "empty path":
-            self.l_status.config(text = "Please enter the path to the file you want to convert.")
+            self.l_status.config(text = "Please enter the path to the file.")
         elif status == "empty extension":
-            self.l_status.config(text = "Please choose an extension of the file you want to convert.")
+            self.l_status.config(text = "Please choose an extensionof the file.")
         elif status == "generating":
-            self.l_status.config(text = "The program is generating the file. Please wait...")
+            self.l_status.config(text = "The program is generating the file.\nPlease wait...")
         elif status == "invalid language":
-            self.l_status.config(text = "Unfortunately, the language of the file is not supported.")
+            self.l_status.config(text = "File language is not supported.")
         elif status == "done":
             self.l_status.config(text = "Done!\nThe program generated an audio file!")
         self.root.update()
@@ -228,7 +228,7 @@ class Interface:
         else:
             return self.i_type.get(self.i_type.curselection()[0])
     
-    def get_input(self) -> (str, str):
+    def get_input(self) -> tuple[str, str]:
         # method that extracts entered filepath and 
         # selected file type and returns them
         filepath = self.get_path_input()
@@ -238,7 +238,6 @@ class Interface:
     def generate_speech(self) -> None:
         # function that attempts to generate the speech
         # from entered filepath and extension
-        self.set_status("generating")
         filepath, extension = self.get_input()
         if filepath == "":
             self.set_status("empty path")
@@ -249,6 +248,7 @@ class Interface:
         extension = extension.split(" ")[0]
         result = filepath_check(filepath, extension)
         if result == "correct":
+            self.set_status("generating")
             success = generate_speech_audio(filepath, extension)
             if not success:
                 self.set_status("invalid language")
